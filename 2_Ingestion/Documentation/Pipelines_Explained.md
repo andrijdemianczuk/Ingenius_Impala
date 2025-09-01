@@ -1,0 +1,5 @@
+# Pipelines Explained
+Databricks now allows developers to encapsulate and organize declarative pipelines into a well-organized file structure. Databricks provides a recommended file structure however users are free to incorporate a hierarchy that suites organizational needs. This is really useful to adapt workflows and pipelines to case-specific criteria.
+
+## Databricks Execution Structure
+Any directories and files that are marked as included are first read into the pipeline engine before execution. This is what allows declarative pipelines to be developed and execute in an asynchronous manner. All code that exists in any folder that's marked as a 'pipeline source code folder' is loaded in memory before execution and a DAG is constructed behind the scenes to determine the order of operations. This execution structure allows us more flexibility in development and grants us the ability to fork or bifurcate our logic at any point.
