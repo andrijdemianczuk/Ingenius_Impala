@@ -9,3 +9,80 @@
 -- COMMAND ----------
 
 SELECT COUNT(*) as count FROM ademianczuk.ncr.b_wind_data
+
+-- COMMAND ----------
+
+-- DBTITLE 1,View the median and mode values
+select
+  ACTUAL,
+  OPT,
+  ((OPT - ACTUAL)) as diff,
+  FORECAST_DATE_LOCAL
+from
+  ademianczuk.ncr.b_wind_data
+order by
+  FORECAST_DATE_LOCAL asc
+
+-- COMMAND ----------
+
+-- DBTITLE 1,Downsampled Version (simple stats)
+WITH per_day_median AS (
+  SELECT
+    DATE(FORECAST_DATE_LOCAL) AS day,
+    median(ACTUAL) AS median_value
+  FROM ademianczuk.ncr.b_wind_data
+  GROUP BY DATE(FORECAST_DATE_LOCAL)
+),
+
+per_day_mode AS (
+  SELECT
+    DATE(FORECAST_DATE_LOCAL) AS day,
+    mode(ACTUAL) AS mode_value
+  FROM ademianczuk.ncr.b_wind_data
+  GROUP BY DATE(FORECAST_DATE_LOCAL)
+)
+
+SELECT
+  m.day,
+  m.median_value,
+  d.mode_value
+FROM per_day_median m
+JOIN per_day_mode d USING (day)
+ORDER BY m.day;
+
+-- COMMAND ----------
+
+-- DBTITLE 1,More Complex Statistics
+WITH per_day_stats AS (
+  SELECT
+    DATE(FORECAST_DATE_LOCAL) AS day,
+    COUNT(*) AS n,
+    AVG(ACTUAL) AS mean_value,
+    STDDEV_SAMP(ACTUAL) AS stddev_value,
+    VAR_SAMP(ACTUAL) AS variance_value,
+    MIN(ACTUAL) AS min_value,
+    MAX(ACTUAL) AS max_value,
+    (MAX(ACTUAL) - MIN(ACTUAL)) AS range_value,
+    percentile_approx(ACTUAL, 0.25) AS p25,
+    percentile_approx(ACTUAL, 0.5) AS median_value,
+    percentile_approx(ACTUAL, 0.75) AS p75,
+    mode() WITHIN GROUP (ORDER BY ACTUAL) AS mode_value
+  FROM ademianczuk.ncr.b_wind_data
+  GROUP BY DATE(FORECAST_DATE_LOCAL)
+)
+SELECT
+  day,
+  n,
+  min_value,
+  p25,
+  median_value,
+  mean_value,
+  p75,
+  max_value,
+  (p75 - p25) AS iqr_value,
+  stddev_value,
+  variance_value,
+  range_value,
+  mode_value
+FROM per_day_stats
+ORDER BY day;
