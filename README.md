@@ -1,5 +1,5 @@
 # Ingenious Impala
-<img src="https://tradebrains.in/features/wp-content/uploads/2022/01/Renewable-energy-Cover-Image-1080x675.jpg" width=500>
+<img src="Images/Renewable-energy-Cover-Image-1080x675.jpg" width=500>
 
 An analytics and data engineering experiment using data from AESO (Alberta Electric System Operator). This project requires access to a Databricks worskpace with Unity Catalog enabled. In this project we will be downloading and segmenting data to simulate incremental batch ingestion of data (the most common use case). Data will be incrementally ingested using a Lakeflow Pipeline and run through an ETL pipeline for downstream analytics and featurization.
 
