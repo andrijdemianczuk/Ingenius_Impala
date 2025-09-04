@@ -10,5 +10,10 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 1. Run the contents of `00_data_prep`. It is recommended to run this notebook in sequence for optimal compatability.
 
 ## Terminology
+
+* "MW" refers to megawatts, a unit of power that the AESO uses for market operations, managing electricity demand, and planning the transmission system.
+* "OPT" refers to the optimal forecast.
+* "MAX" refers to the forecasted maximum value.
+* "MIN" refers to the forecasted minimum.
+* "ACTUAL" refers to the observed value.
 * "MCR" refers to the Maximum Continuous Rating in the context of the AESO (Alberta Electric System Operator), which is the maximum net power output an import source asset can sustain. The AESO uses MCR, or maximum capability, to understand the available power from assets and operate Alberta's power grid safely and reliably
-* "MW" refers to megawatts, a unit of power that the AESO uses for market operations, managing electricity demand, and planning the transmission system. 
