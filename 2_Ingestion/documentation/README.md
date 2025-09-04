@@ -3,3 +3,9 @@ Databricks now allows developers to encapsulate and organize declarative pipelin
 
 ## Databricks Execution Structure
 Any directories and files that are marked as included are first read into the pipeline engine before execution. This is what allows declarative pipelines to be developed and execute in an asynchronous manner. All code that exists in any folder that's marked as a 'pipeline source code folder' is loaded in memory before execution and a DAG is constructed behind the scenes to determine the order of operations. This execution structure allows us more flexibility in development and grants us the ability to fork or bifurcate our logic at any point.
+
+## Building Your First Pipeline
+stuff goes here. Throw in a picture or something.
+
+### Streaming Tables & Materialized Views
+what's the difference and when to use them
