@@ -18,7 +18,7 @@
   "pages": [
     {
       "name": "1c51a945",
-      "displayName": "Untitled page",
+      "displayName": "Wind Overview",
       "layout": [
         {
           "widget": {
@@ -226,6 +226,11 @@
           }
         }
       ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "f06e9f54",
+      "displayName": "Lab 2: Dashboarding",
       "pageType": "PAGE_TYPE_CANVAS"
     }
   ],
