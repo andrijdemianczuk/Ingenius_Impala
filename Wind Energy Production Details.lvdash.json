@@ -30,12 +30,12 @@
                   "datasetName": "8a25bfca",
                   "fields": [
                     {
-                      "name": "month",
-                      "expression": "`month`"
-                    },
-                    {
                       "name": "mean_actual",
                       "expression": "`mean_actual`"
+                    },
+                    {
+                      "name": "month",
+                      "expression": "`month`"
                     }
                   ],
                   "disaggregated": true
@@ -47,30 +47,77 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
+                  "fieldName": "mean_actual",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Average Actual Observed Output"
+                },
+                "y": {
                   "fieldName": "month",
                   "scale": {
                     "type": "categorical"
                   },
                   "displayName": "Month"
                 },
-                "y": {
-                  "fieldName": "mean_actual",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "displayName": "Average Actual Observed Output"
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "title": "Summary of median actual observed output per month",
                 "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
               }
             }
           },
           "position": {
             "x": 0,
-            "y": 0,
-            "width": 3,
+            "y": 2,
+            "width": 2,
             "height": 6
           }
         },
@@ -156,9 +203,9 @@
             }
           },
           "position": {
-            "x": 0,
-            "y": 6,
-            "width": 6,
+            "x": 2,
+            "y": 2,
+            "width": 4,
             "height": 6
           }
         },
@@ -172,10 +219,10 @@
             }
           },
           "position": {
-            "x": 3,
+            "x": 0,
             "y": 0,
-            "width": 3,
-            "height": 6
+            "width": 6,
+            "height": 2
           }
         }
       ],
