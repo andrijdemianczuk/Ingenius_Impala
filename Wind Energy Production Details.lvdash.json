@@ -1,0 +1,190 @@
+{
+  "datasets": [
+    {
+      "name": "8a25bfca",
+      "displayName": "g_month_stats_vw",
+      "queryLines": [
+        "SELECT * FROM ademianczuk.ncr.g_month_stats_vw"
+      ]
+    },
+    {
+      "name": "af6638f3",
+      "displayName": "g_wind_stats",
+      "queryLines": [
+        "SELECT * FROM ademianczuk.ncr.g_wind_stats"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "1c51a945",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "12bd575f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "8a25bfca",
+                  "fields": [
+                    {
+                      "name": "month",
+                      "expression": "`month`"
+                    },
+                    {
+                      "name": "mean_actual",
+                      "expression": "`mean_actual`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "month",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Month"
+                },
+                "y": {
+                  "fieldName": "mean_actual",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Average Actual Observed Output"
+                }
+              },
+              "frame": {
+                "title": "Summary of median actual observed output per month",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "e418efaf",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "af6638f3",
+                  "fields": [
+                    {
+                      "name": "weekly(day)",
+                      "expression": "DATE_TRUNC(\"WEEK\", `day`)"
+                    },
+                    {
+                      "name": "min(mean_value)",
+                      "expression": "MIN(`mean_value`)"
+                    },
+                    {
+                      "name": "q1(mean_value)",
+                      "expression": "PERCENTILE(`mean_value`, 0.25)"
+                    },
+                    {
+                      "name": "median(mean_value)",
+                      "expression": "MEDIAN(`mean_value`)"
+                    },
+                    {
+                      "name": "q3(mean_value)",
+                      "expression": "PERCENTILE(`mean_value`, 0.75)"
+                    },
+                    {
+                      "name": "max(mean_value)",
+                      "expression": "MAX(`mean_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "box",
+              "encodings": {
+                "x": {
+                  "fieldName": "weekly(day)",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "displayName": "day"
+                },
+                "y": {
+                  "whiskerStart": {
+                    "fieldName": "min(mean_value)",
+                    "displayName": "Minimum mean_value"
+                  },
+                  "boxStart": {
+                    "fieldName": "q1(mean_value)",
+                    "displayName": "First Quartile of mean_value"
+                  },
+                  "boxMid": {
+                    "fieldName": "median(mean_value)",
+                    "displayName": "Median of mean_value"
+                  },
+                  "boxEnd": {
+                    "fieldName": "q3(mean_value)",
+                    "displayName": "Third Quartile of mean_value"
+                  },
+                  "whiskerEnd": {
+                    "fieldName": "max(mean_value)",
+                    "displayName": "Maximum mean_value"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Weekly breakdown of average observed output by week"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "270b3082",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Actual and Observed Energy Output"
+              ]
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
