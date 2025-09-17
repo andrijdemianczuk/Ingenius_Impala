@@ -3,7 +3,7 @@
 
 An analytics and data engineering experiment using data from AESO (Alberta Electric System Operator). This project requires access to a Databricks worskpace with Unity Catalog enabled. In this project we will be downloading and segmenting data to simulate incremental batch ingestion of data (the most common use case). Data will be incrementally ingested using a Lakeflow Pipeline and run through an ETL pipeline for downstream analytics and featurization.
 
-## Environment Setup (do this first)
+## 1. Environment Setup
 1. Clone this repository into a git folder in Databricks <br/>
 <img src="Images/git_folder_import.png" width=250><br/><br/>
 <img src="Images/git_folder_dialog.png" width=750><br/>
@@ -31,7 +31,7 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
     dbutils.fs.rm(dst_dir, True)
     ```
 
-## Further Documentation (where all our info lives)
+### Project Structure
 * `1_Data_Prep` contains in-line documentation of what's going on within the two notebooks.
 * `2_Ingestion` is a directory that's mapped directly to a Databricks Lakeflow Pipeline. This directory contains the common structure for a pipeline. Within this directory there are a few directories to make note of:
   * `disabled` is a directory where we will be storing files that are excluded from a pipeline run. Think of it as a 'staging' area.
@@ -41,7 +41,7 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 
 
 
-## Pipeline and Project Setup (do this second)
+## 2. Project Confirmation
 1. Make sure you go through the above setup process first. This ensures that the data is present and available for processing in a volume. **In order for the pipeline to work, `02_ingest_file` has to be run at least once, otherwise the pipeline will return an error.**
 1. Make sure the following has been completed:
     * A catalog was created (e.g., "development")
@@ -50,6 +50,16 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
     * The `00_data_prep` notebook was successfully run
     * Your storage volume ("data") looks similar to this:<br/>
     <img src="Images/storage_volume_sample.png" width=750><br/>
+
+## 3. Pipeline Configuration
+Next, we need to set up our pipeline and get things going. We're going to be using the new Databricks Lakeflow Pipeline Editor for this.
+1. Turn on (or make sure it's enabled) the new Databricks Lakeflow Pipeline Editor.
+    1. In the top right of the screen, you should see a small logo with one of your login initials. You'll need access to the 'previews' feature. <br/><br/>
+    <img src="Images/enable_preview_1.png" width=250><br/><br/>
+    <img src="Images/enable_preview_2.png" width=500><br/><br/>
+**NOTE:** Depending on when you are running this project, the new pipeline editor might already be generally available. If that's the case, then this step is un-necessary and should be enabled by default.
+1. In the `Jobs & Pipelines` menu, create a new `ETL Pipeline` <br/><br/>
+<img src="Images/create_etl_pipeline.png" width=750>
 
 ## Terminology and conventions used
 * "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is who we got the data from for this project.
