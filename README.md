@@ -6,7 +6,7 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 ## Environment Setup (do this first)
 1. Clone this repository into a git folder in Databricks <br/>
 <img src="Images/git_folder_import.png" width=250><br/><br/>
-<img src="Images/git_folder_dialog.png" width=500>
+<img src="Images/git_folder_dialog.png" width=750><br/>
 1. Create a catalog making note of the name (e.g., `development`)
 1. Create a database making note of the name (e.g., `ncr`)
 1. For this lab, if you want to use different catalog and database names they will need to be updated in each notebook and python module.
