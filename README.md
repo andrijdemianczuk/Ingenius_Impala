@@ -58,6 +58,8 @@ Next, we need to set up our pipeline and get things going. We're going to be usi
     <img src="Images/enable_preview_1.png" width=250><br/><br/>
     <img src="Images/enable_preview_2.png" width=500><br/><br/>
 **NOTE:** Depending on when you are running this project, the new pipeline editor might already be generally available. If that's the case, then this step is un-necessary and should be enabled by default.
+    1. (Optional) You can also check the user settings to see if the new editor is already enabled: <br/><br/>
+    <img src="Images/enable_lf_editor.png" width=1000/>
 1. In the `Jobs & Pipelines` menu, create a new `ETL Pipeline` <br/><br/>
 <img src="Images/create_etl_pipeline.png" width=750>
 
