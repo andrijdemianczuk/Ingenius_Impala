@@ -34,7 +34,7 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 ## Further Documentation (where all our info lives)
 * `1_Data_Prep` contains in-line documentation of what's going on within the two notebooks.
 * `2_Ingestion` is a directory that's mapped directly to a Databricks Lakeflow Pipeline. This directory contains the common structure for a pipeline. Within this directory there are a few directories to make note of:
-  * `disabled` is a directory where we will be storing files that are excluded from a pipeline run. Think of it as a 'stagin' area.
+  * `disabled` is a directory where we will be storing files that are excluded from a pipeline run. Think of it as a 'staging' area.
   * `documentation` contains the documentation and walkthrough of the actual Lakeflow Pipeline. Look here for documentation to work through the Lakeflow Pipeline demo
   * `explorations` are a collection of functions (SQL format) that explore what we want to do with our data. This is for exploration only and gives us an idea of what we want to put in our final pipeline.
   * `transformations` are the meat-and-potatoes of our pipeline. All code files in this location are read in first by Lakeflow and a DAG is built to understand what transformations are done, and in what order. This is important because we can insure that lineage and governance are preserved.
@@ -43,6 +43,13 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 
 ## Pipeline and Project Setup (do this second)
 1. Make sure you go through the above setup process first. This ensures that the data is present and available for processing in a volume. **In order for the pipeline to work, `02_ingest_file` has to be run at least once, otherwise the pipeline will return an error.**
+1. Make sure the following has been completed:
+    * A catalog was created (e.g., "development")
+    * A database (schema) was created (e.g., "ncr")
+    * A storage volume called "data" was created in your database
+    * The `00_data_prep` notebook was successfully run
+    * Your storage volume ("data") looks similar to this:<br/>
+    <img src="Images/storage_volume_sample.png" width=750><br/>
 
 ## Terminology and conventions used
 * "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is who we got the data from for this project.
