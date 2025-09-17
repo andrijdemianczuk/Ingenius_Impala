@@ -4,7 +4,9 @@
 An analytics and data engineering experiment using data from AESO (Alberta Electric System Operator). This project requires access to a Databricks worskpace with Unity Catalog enabled. In this project we will be downloading and segmenting data to simulate incremental batch ingestion of data (the most common use case). Data will be incrementally ingested using a Lakeflow Pipeline and run through an ETL pipeline for downstream analytics and featurization.
 
 ## Environment Setup (do this first)
-1. Clone this repository into a git folder in Databricks
+1. Clone this repository into a git folder in Databricks <br/>
+<img src="Images/git_folder_import.png" width=250><br/><br/>
+<img src="Images/git_folder_dialog.png" width=500>
 1. Create a catalog making note of the name (e.g., `development`)
 1. Create a database making note of the name (e.g., `ncr`)
 1. For this lab, if you want to use different catalog and database names they will need to be updated in each notebook and python module.
