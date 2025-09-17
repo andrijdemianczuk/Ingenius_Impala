@@ -3,14 +3,47 @@
 
 An analytics and data engineering experiment using data from AESO (Alberta Electric System Operator). This project requires access to a Databricks worskpace with Unity Catalog enabled. In this project we will be downloading and segmenting data to simulate incremental batch ingestion of data (the most common use case). Data will be incrementally ingested using a Lakeflow Pipeline and run through an ETL pipeline for downstream analytics and featurization.
 
-## Setup
+## Environment Setup (do this first)
 1. Clone this repository into a git folder in Databricks
 1. Create a catalog making note of the name (e.g., `development`)
+1. Create a database making note of the name (e.g., `ncr`)
+1. For this lab, if you want to use different catalog and database names they will need to be updated in each notebook and python module.
 1. Open `00_data_prep` and modify the variables declared in the first cell. These variables set the catalog name, database and storage volume labels.
 1. Run the contents of `00_data_prep`. It is recommended to run this notebook in sequence for optimal compatability.
+1. `00_data_prep` is a notebook that takes in a csv file of our data and chunks it up into a series of smaller csvs and parquet files that we can use to update incrementally. This is a realistic simluation of data coming in and landing in a storage directory that the pipeline in this workshop will use to ingest, integrate and process.
+    1. `01_data_prep` creates the entire structure for the csv loader. You need a storage volume for this to work properly. We're calling ours `data` and it's under the `development.ncr` database
+    1. `02_ingest_file` is a script that we'll run to incrementally load one csv file after the other. This script copies data from the csv volume directory to the loaded volume directory to simulate files 'landing' in some type of cloud storag object.
+    1. `02_ingest_file` has one cell at the bottom that's commented out. This commented out cell resets the testing environment clearing out the loaded files and drops the pipeline tables. To re-run the pipeline from scratch, it needs to be either deleted and re-importanted or fully refreshed. To do that, simply uncomment the lines in the cell and replace the name of the catalog and database with your own:
+    ```python
+    #TODO: Replace the following variables with your catalog and database name
+    catalog = "YOUR_CATALOG_NAME"
+    database = "YOUR_DATABASE_NAME"
 
-## Terminology
+    #Create the variables for our storage locations
+    table = f"{catalog}.{database}.csv_copy_progress"
 
+    spark.sql(f"""
+      DROP TABLE IF EXISTS {table};
+    """)
+
+    dbutils.fs.rm(dst_dir, True)
+    ```
+
+## Further Documentation (where all our info lives)
+* `1_Data_Prep` contains in-line documentation of what's going on within the two notebooks.
+* `2_Ingestion` is a directory that's mapped directly to a Databricks Lakeflow Pipeline. This directory contains the common structure for a pipeline. Within this directory there are a few directories to make note of:
+  * `disabled` is a directory where we will be storing files that are excluded from a pipeline run. Think of it as a 'stagin' area.
+  * `documentation` contains the documentation and walkthrough of the actual Lakeflow Pipeline. Look here for documentation to work through the Lakeflow Pipeline demo
+  * `explorations` are a collection of functions (SQL format) that explore what we want to do with our data. This is for exploration only and gives us an idea of what we want to put in our final pipeline.
+  * `transformations` are the meat-and-potatoes of our pipeline. All code files in this location are read in first by Lakeflow and a DAG is built to understand what transformations are done, and in what order. This is important because we can insure that lineage and governance are preserved.
+
+
+
+## Pipeline and Project Setup (do this second)
+1. Make sure you go through the above setup process first. This ensures that the data is present and available for processing in a volume. **In order for the pipeline to work, `02_ingest_file` has to be run at least once, otherwise the pipeline will return an error.**
+
+## Terminology and conventions used
+* "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is who we got the data from for this project.
 * "MW" refers to megawatts, a unit of power that the AESO uses for market operations, managing electricity demand, and planning the transmission system.
 * "OPT" refers to the optimal forecast.
 * "MAX" refers to the forecasted maximum value.
