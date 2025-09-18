@@ -218,7 +218,9 @@
             "name": "270b3082",
             "multilineTextboxSpec": {
               "lines": [
-                "# Actual and Observed Energy Output"
+                "# Actual and Observed Energy Output\n",
+                "\n",
+                "This view represents the typical energy distribution on a per-month and per-week basis, providing insights around typical usage and a view of any potential seasonality."
               ]
             }
           },
@@ -227,6 +229,72 @@
             "y": 0,
             "width": 6,
             "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "2f448b01",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "af6638f3",
+                  "fields": [
+                    {
+                      "name": "daily(day)",
+                      "expression": "DATE_TRUNC(\"DAY\", `day`)"
+                    },
+                    {
+                      "name": "p25",
+                      "expression": "`p25`"
+                    },
+                    {
+                      "name": "p75",
+                      "expression": "`p75`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "area",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(day)",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "displayName": "day"
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "p25",
+                      "displayName": "p25"
+                    },
+                    {
+                      "fieldName": "p75",
+                      "displayName": "p75"
+                    }
+                  ]
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "P25 / P75 Values of Actual (Observed) Energy Generation"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 6
           }
         }
       ],
