@@ -53,34 +53,33 @@ Make sure the following has been completed:
 * A storage volume called "data" was created in your database
 * The `00_data_prep` notebook was successfully run
 * Your storage volume ("data") looks similar to this <br/><br/>
-<img src="Images/storage_volume_sample.png" width=750><br/>
+<img src="Images/storage_volume_sample.png" width=750><br>
 
 ## 3. Pipeline Configuration
 Next, we need to set up our pipeline and get things going. We're going to be using the new Databricks Lakeflow Pipeline Editor for this.
-1. Turn on (or make sure it's enabled) the new Databricks Lakeflow Pipeline Editor.
-    1. In the top right of the screen, you should see a small logo with one of your login initials. You'll need access to the 'previews' feature. <br/><br/>
-    <img src="Images/enable_preview_1.png" width=250 /><br/><br/>
-    <img src="Images/enable_preview_2.png" width=500 /><br/><br/>
-**NOTE:** Depending on when you are running this project, the new pipeline editor might already be generally available. If that's the case, then this step is un-necessary and should be enabled by default.
-    1. (Optional) You can also check the user settings to see if the new editor is already enabled: <br/><br/>
-    <img src="Images/enable_lf_editor.png" width=1000/>
-1. In the `Jobs & Pipelines` menu, create a new `ETL Pipeline` <br/><br/>
-<img src="Images/create_etl_pipeline.png" width=750>
-1. We're going to give the pipeline a unique name to make it easy to identify<br/><br/>
-<img src="Images/name_the_pipeline.png" width=500/>
-1. Since we imported the code source from github, we'll be adding existing resources to the pipeline <br/><br/>
+1. Turn on (or make sure it's enabled) the new Databricks Lakeflow Pipeline Editor. In the top right of the screen, you should see a small logo with one of your login initials. You'll need access to the previews feature. <br/>
+<img src="Images/enable_preview_1.png" width=250 /><br/>
+<img src="Images/enable_preview_2.png" width=500 /><br/>
+**NOTE:** Depending on when you are running this project, the new pipeline editor might already be generally available. If that's the case, then this step is un-necessary and should be enabled by default.<br/>
+(Optional) You can also check the user settings to see if the new editor is already enabled <br/>
+<img src="Images/enable_lf_editor.png" width=1000 />
+1. In the `Jobs & Pipelines` menu, create a new `ETL Pipeline` <br/>
+<img src="Images/create_etl_pipeline.png" width=750/ >
+1. We're going to give the pipeline a unique name to make it easy to identify<br/>
+<img src="Images/name_the_pipeline.png" width=500 />
+1. Since we imported the code source from github, we'll be adding existing resources to the pipeline <br/>
 <img src="Images/choose_existing_assets.png" width=500 />
-1. In the add assets dialog, you need to configure the pipeline root (`Ingenious_Impala/2_Ingestion`) and the transformation code path (`Ingenious_Impala/2_Ingestion/transformations`)<br/><br/>
+1. In the add assets dialog, you need to configure the pipeline root (`Ingenious_Impala/2_Ingestion`) and the transformation code path (`Ingenious_Impala/2_Ingestion/transformations`)<br/>
 <img src="Images/add_asset_dialog.png" width=750 />
-1. Your pipeline structure should look as follows<br/><br/>
+1. Your pipeline structure should look as follows<br/>
 <img src="Images/pipeline_project_outline.png" width=300 />
 1. The transformations folder contains all of the source code that will be run in a declarative fashion by the pipeline. The disabled folder is an excluded folder that is a handy place to store in-develpment pipeline objects.
-1. Open `1_Ingest_Files_Bronze.sql`. In section 2 step 2 earlier we made note of our unique user ID (e.g., `AD_82257556`). You'll need to to a 'find/replace' function (either option+F or cmd+f depending on your system). Search and replace all instances of `{YOUR_UNIQUE_DB}` and replace all instances with you unique user ID (e.g., `AD_82257556`)<br/><br/>
-<img src="Images/search_replace.png" width=500 />
-1. Repeat step 8 for the remaining files:
-    * 2_Auto_CDC_Example.sql
-    * 3_Data_Enrichment.sql
-    * 4_Wind_Report_Data.sql 
+1. Open `1_Ingest_Files_Bronze.sql`. In section 2 step 2 earlier we made note of our unique user ID (e.g., `AD_82257556`). You'll need to to a 'find/replace' function (either option+F or cmd+f depending on your system). Search and replace all instances of `{YOUR_UNIQUE_DB}` and replace all instances with you unique user ID (e.g., `AD_82257556`)
+<img src="Images/search_replace.png" width=500 /><br/>
+1. Repeat step 8 for the remaining files
+* 2_Auto_CDC_Example.sql
+* 3_Data_Enrichment.sql
+* 4_Wind_Report_Data.sql 
 
 ## Terminology and conventions used
 * "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is who we got the data from for this project.
