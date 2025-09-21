@@ -7,7 +7,7 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 1. Clone this repository into a git folder in Databricks <br/>
 <img src="Images/git_folder_import.png" width=250><br/><br/>
 <img src="Images/git_folder_dialog.png" width=750><br/>
-1. By default, the project uses the `main` catalog by default. If you want to use a different catalog create a catalog making note of the name (e.g., `development`)
+1. By default, the project uses the `main` catalog. If you want to use a different catalog create a catalog making note of the name (e.g., `development`)
 1. A database with a unique user name will be created in the data prep notebook. This can be overridden if prefer a custom catalog name.
 1. For this lab, if you want to use different catalog and database names they will need to be updated in each notebook and python module.
 1. Open `00_data_prep` and modify the variables declared in the first cell. These variables set the catalog name, database and storage volume labels.
@@ -45,7 +45,7 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 1. Make sure you go through the above setup process first. This ensures that the data is present and available for processing in a volume. **In order for the pipeline to work, `02_ingest_file` has to be run at least once, otherwise the pipeline will return an error.**
 1. Make sure the following has been completed:
     * A catalog was created (e.g., "development")
-    * A database (schema) was created (e.g., "ncr")
+    * A database (schema) was created (e.g., "your_unique_database")
     * A storage volume called "data" was created in your database
     * The `00_data_prep` notebook was successfully run
     * Your storage volume ("data") looks similar to this:<br/>
