@@ -10,10 +10,11 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 1. By default, the project uses the `main` catalog. If you want to use a different catalog create a catalog making note of the name (e.g., `development`)
 1. A database with a unique user name will be created in the data prep notebook. This can be overridden if prefer a custom catalog name.
 1. For this lab, if you want to use different catalog and database names they will need to be updated in each notebook and python module.
-1. Open `00_data_prep` and modify the variables declared in the first cell. These variables set the catalog name, database and storage volume labels.
-1. Run the contents of `00_data_prep`. It is recommended to run this notebook in sequence for optimal compatability.
-1. `00_data_prep` is a notebook that takes in a csv file of our data and chunks it up into a series of smaller csvs and parquet files that we can use to update incrementally. This is a realistic simluation of data coming in and landing in a storage directory that the pipeline in this workshop will use to ingest, integrate and process.
-    1. `01_data_prep` creates the entire structure for the csv loader. You need a storage volume for this to work properly. We're calling ours `data` and it's under the `development.ncr` database
+1. Open the folder `1_data_prep`. In here, there are two notebooks. The first notebook (`01_data_prep`) only needs to be run once to create the originating data source, database and data volume.
+1. Open `01_data_prep` and modify the variables declared in the first cell. These variables set the catalog name, database and storage volume labels.
+1. Run the contents of `01_data_prep`. It is recommended to run this notebook in sequence for optimal compatability.
+1. `01_data_prep` is a notebook that takes in a csv file of our data and chunks it up into a series of smaller csvs and parquet files that we can use to update incrementally. This is a realistic simluation of data coming in and landing in a storage directory that the pipeline in this workshop will use to ingest, integrate and process.
+    1. `01_data_prep` creates the entire structure for the csv loader. You need a storage volume for this to work properly. We're calling ours `data` and it's under the `development.{your_unique_database}` database
     1. `02_ingest_file` is a script that we'll run to incrementally load one csv file after the other. This script copies data from the csv volume directory to the loaded volume directory to simulate files 'landing' in some type of cloud storag object.
     1. `02_ingest_file` has one cell at the bottom that's commented out. This commented out cell resets the testing environment clearing out the loaded files and drops the pipeline tables. To re-run the pipeline from scratch, it needs to be either deleted and re-importanted or fully refreshed. To do that, simply uncomment the lines in the cell and replace the name of the catalog and database with your own:
     ```python
@@ -43,6 +44,8 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 
 ## 2. Project Confirmation
 1. Make sure you go through the above setup process first. This ensures that the data is present and available for processing in a volume. **In order for the pipeline to work, `02_ingest_file` has to be run at least once, otherwise the pipeline will return an error.**
+1. When you run notebook `02_ingest_file`, the first cell creates a unique user id. **MAKE NOTE OF THIS USER ID - WE WILL NEED IT LATER** <br/><br/>
+<img src="Images/get_unique_user.png" />
 1. Make sure the following has been completed:
     * A catalog was created (e.g., "development")
     * A database (schema) was created (e.g., "your_unique_database")
@@ -62,6 +65,21 @@ Next, we need to set up our pipeline and get things going. We're going to be usi
     <img src="Images/enable_lf_editor.png" width=1000/>
 1. In the `Jobs & Pipelines` menu, create a new `ETL Pipeline` <br/><br/>
 <img src="Images/create_etl_pipeline.png" width=750>
+1. We're going to give the pipeline a unique name to make it easy to identify<br/><br/>
+<img src="Images/name_the_pipeline.png" width=500/>
+1. Since we imported the code source from github, we'll be adding existing resources to the pipeline <br/><br/>
+<img src="Images/choose_existing_assets.png" width=500 />
+1. In the add assets dialog, you need to configure the pipeline root (`Ingenious_Impala/2_Ingestion`) and the transformation code path (`Ingenious_Impala/2_Ingestion/transformations`)<br/><br/>
+<img src="Images/add_asset_dialog.png" width=750 />
+1. Your pipeline structure should look as follows<br/><br/>
+<img src="Images/pipeline_project_outline.png" width=300 />
+1. The transformations folder contains all of the source code that will be run in a declarative fashion by the pipeline. The disabled folder is an excluded folder that is a handy place to store in-develpment pipeline objects.
+1. Open `1_Ingest_Files_Bronze.sql`. In section 2 step 2 earlier we made note of our unique user ID (e.g., `AD_82257556`). You'll need to to a 'find/replace' function (either option+F or cmd+f depending on your system). Search and replace all instances of `{YOUR_UNIQUE_DB}` and replace all instances with you unique user ID (e.g., `AD_82257556`)<br/><br/>
+<img src="Images/search_replace.png" width=500 />
+1. Repeat step 8 for the remaining files:
+    * 2_Auto_CDC_Example.sql
+    * 3_Data_Enrichment.sql
+    * 4_Wind_Report_Data.sql 
 
 ## Terminology and conventions used
 * "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is who we got the data from for this project.
