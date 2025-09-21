@@ -1,4 +1,5 @@
 CREATE STREAMING TABLE ademianczuk.ncr.s_wind_pred_details
+TBLPROPERTIES ("quality" = "silver")
 SELECT
   *,
   ((OPT - ACTUAL)) as pred_diff,

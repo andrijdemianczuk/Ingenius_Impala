@@ -315,7 +315,8 @@
                 "\n",
                 "1. When is it advantageous to use 'gold' tier tables vs materialized views and vice-versa?\n",
                 "2. What is the difference in refreshing table data vs view data?\n",
-                "3. How can we use language models and built-in AI to help contribute to business intelligence?"
+                "3. How can we use language models and built-in AI to help contribute to business intelligence?\n",
+                "4. Try to build a visualization that filter by month using a dropdown for monthly insights"
               ]
             }
           },
