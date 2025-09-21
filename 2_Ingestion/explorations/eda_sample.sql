@@ -8,7 +8,35 @@
 
 -- COMMAND ----------
 
-SELECT COUNT(*) as count FROM ademianczuk.ncr.s_updated_wind
+-- MAGIC %python
+-- MAGIC import hashlib, base64
+-- MAGIC
+-- MAGIC #IMPORTANT! DO NOT CHANGE THESE VALUES!!!!
+-- MAGIC # catalog = "workshop"
+-- MAGIC # db = "default"
+-- MAGIC
+-- MAGIC current_user = dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()
+-- MAGIC hash_object = hashlib.sha256(current_user.encode())
+-- MAGIC hash_user_id = base64.b32encode(hash_object.digest()).decode("utf-8").rstrip("=")[:12]  #Trim to 12 chars for readability
+-- MAGIC initials = "".join([x[0] for x in current_user.split("@")[0].split(".")])
+-- MAGIC short_hash = hashlib.md5(current_user.encode()).hexdigest()[:8]  #Short 8-char hash
+-- MAGIC safe_user_id = f"{initials.upper()}_{short_hash}"
+-- MAGIC
+-- MAGIC print(safe_user_id)
+-- MAGIC
+-- MAGIC catalog = "main"
+-- MAGIC database = safe_user_id
+-- MAGIC volume = "data"
+-- MAGIC
+-- MAGIC dbutils.widgets.text("catalog", f"{catalog}")
+-- MAGIC dbutils.widgets.text("database", f"{database}")
+-- MAGIC
+-- MAGIC catalog = dbutils.widgets.get("catalog")
+-- MAGIC database = dbutils.widgets.get("database")
+
+-- COMMAND ----------
+
+SELECT COUNT(*) as count FROM IDENTIFIER(:catalog || '.' || :database || '.s_updated_wind')
 
 -- COMMAND ----------
 
@@ -19,7 +47,7 @@ select
   (OPT / MCR) * 100 as pred_perc,
   (ACTUAL / MCR) * 100 as actual_perc
 from
-  ademianczuk.ncr.s_updated_wind
+  IDENTIFIER(:catalog || '.' || :database || '.s_updated_wind')
 order by
   FORECAST_DATE_LOCAL asc
 
@@ -40,7 +68,7 @@ WITH per_day_stats AS (
     percentile_approx(ACTUAL, 0.5) AS median_value,
     percentile_approx(ACTUAL, 0.75) AS p75,
     mode() WITHIN GROUP (ORDER BY ACTUAL) AS mode_value
-  FROM ademianczuk.ncr.s_updated_wind
+  FROM IDENTIFIER(:catalog || '.' || :database || '.s_updated_wind')
   GROUP BY DATE(FORECAST_DATE_LOCAL)
 )
 SELECT

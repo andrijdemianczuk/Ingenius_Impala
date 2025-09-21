@@ -7,8 +7,8 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 1. Clone this repository into a git folder in Databricks <br/>
 <img src="Images/git_folder_import.png" width=250><br/><br/>
 <img src="Images/git_folder_dialog.png" width=750><br/>
-1. Create a catalog making note of the name (e.g., `development`)
-1. Create a database making note of the name (e.g., `ncr`)
+1. By default, the project uses the `main` catalog by default. If you want to use a different catalog create a catalog making note of the name (e.g., `development`)
+1. A database with a unique user name will be created in the data prep notebook. This can be overridden if prefer a custom catalog name.
 1. For this lab, if you want to use different catalog and database names they will need to be updated in each notebook and python module.
 1. Open `00_data_prep` and modify the variables declared in the first cell. These variables set the catalog name, database and storage volume labels.
 1. Run the contents of `00_data_prep`. It is recommended to run this notebook in sequence for optimal compatability.

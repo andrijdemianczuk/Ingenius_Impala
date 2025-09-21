@@ -1,15 +1,15 @@
-CREATE STREAMING TABLE ademianczuk.ncr.s_wind_pred_details
+CREATE STREAMING TABLE main.{YOUR_UNIQUE_DB}.s_wind_pred_details
 TBLPROPERTIES ("quality" = "silver")
 SELECT
   *,
   ((OPT - ACTUAL)) as pred_diff,
   (OPT / MCR) * 100 as pred_perc,
   (ACTUAL / MCR) * 100 as actual_perc
-FROM STREAM ademianczuk.ncr.s_updated_wind;
+FROM STREAM main.{YOUR_UNIQUE_DB}.s_updated_wind;
 
 
 
-CREATE STREAMING TABLE ademianczuk.ncr.g_wind_stats
+CREATE STREAMING TABLE main.{YOUR_UNIQUE_DB}.g_wind_stats
 WITH per_day_stats AS (
   SELECT
     DATE(FORECAST_DATE_LOCAL) AS day,
@@ -24,7 +24,7 @@ WITH per_day_stats AS (
     percentile_approx(ACTUAL, 0.5) AS median_value,
     percentile_approx(ACTUAL, 0.75) AS p75,
     mode() WITHIN GROUP (ORDER BY ACTUAL) AS mode_value
-  FROM STREAM ademianczuk.ncr.s_wind_pred_details
+  FROM STREAM main.{YOUR_UNIQUE_DB}.s_wind_pred_details
   GROUP BY DATE(FORECAST_DATE_LOCAL)
 )
 SELECT

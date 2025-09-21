@@ -6,8 +6,8 @@
       "queryLines": [
         "SELECT * FROM g_month_stats_vw"
       ],
-      "catalog": "ademianczuk",
-      "schema": "ncr"
+      "catalog": "main",
+      "schema": "ad_82257556"
     },
     {
       "name": "af6638f3",
@@ -15,8 +15,8 @@
       "queryLines": [
         "SELECT * FROM g_wind_stats"
       ],
-      "catalog": "ademianczuk",
-      "schema": "ncr"
+      "catalog": "main",
+      "schema": "ad_82257556"
     }
   ],
   "pages": [
