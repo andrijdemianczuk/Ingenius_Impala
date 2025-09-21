@@ -44,22 +44,23 @@ An analytics and data engineering experiment using data from AESO (Alberta Elect
 
 ## 2. Project Confirmation
 1. Make sure you go through the above setup process first. This ensures that the data is present and available for processing in a volume. **In order for the pipeline to work, `02_ingest_file` has to be run at least once, otherwise the pipeline will return an error.**
-1. When you run notebook `02_ingest_file`, the first cell creates a unique user id. **MAKE NOTE OF THIS USER ID - WE WILL NEED IT LATER** <br/><br/>
-<img src="Images/get_unique_user.png" />
-1. Make sure the following has been completed:
-    * A catalog was created (e.g., "development")
-    * A database (schema) was created (e.g., "your_unique_database")
-    * A storage volume called "data" was created in your database
-    * The `00_data_prep` notebook was successfully run
-    * Your storage volume ("data") looks similar to this:<br/>
-    <img src="Images/storage_volume_sample.png" width=750><br/>
+1. When you run notebook `02_ingest_file`, the first cell creates a unique user id. **MAKE NOTE OF THIS USER ID - WE WILL NEED IT LATER**
+<img src="Images/get_unique_user.png" width=750>
+
+Make sure the following has been completed:
+* A catalog was created (e.g., "development")
+* A database (schema) was created (e.g., "your_unique_database")
+* A storage volume called "data" was created in your database
+* The `00_data_prep` notebook was successfully run
+* Your storage volume ("data") looks similar to this <br/><br/>
+<img src="Images/storage_volume_sample.png" width=750><br/>
 
 ## 3. Pipeline Configuration
 Next, we need to set up our pipeline and get things going. We're going to be using the new Databricks Lakeflow Pipeline Editor for this.
 1. Turn on (or make sure it's enabled) the new Databricks Lakeflow Pipeline Editor.
     1. In the top right of the screen, you should see a small logo with one of your login initials. You'll need access to the 'previews' feature. <br/><br/>
-    <img src="Images/enable_preview_1.png" width=250><br/><br/>
-    <img src="Images/enable_preview_2.png" width=500><br/><br/>
+    <img src="Images/enable_preview_1.png" width=250 /><br/><br/>
+    <img src="Images/enable_preview_2.png" width=500 /><br/><br/>
 **NOTE:** Depending on when you are running this project, the new pipeline editor might already be generally available. If that's the case, then this step is un-necessary and should be enabled by default.
     1. (Optional) You can also check the user settings to see if the new editor is already enabled: <br/><br/>
     <img src="Images/enable_lf_editor.png" width=1000/>
