@@ -1,3 +1,5 @@
+-- We can create multiple definitions in a single file. If we have several branches of logic, it's best practice to keep individual branches of logic grouped together. Remember that logic and forks can occur at any point in a pipeline.
+
 CREATE STREAMING TABLE main.{YOUR_UNIQUE_DB}.s_wind_pred_details
 TBLPROPERTIES ("quality" = "silver")
 SELECT
