@@ -118,7 +118,7 @@ If you've reached the max number of ingested files, you can un-comment the last 
 **IMPORTANT! Don't forget to re-comment this out once it's been run until the next time the file loader has reached it's maximum file count!** 
 
 
-### Configuring the dashboard
+## 4. Configuring the dashboard
 Included with this project is a dashboard that can be used to visualize the data from the pipeline using Lakeview Dashboards. This is a completely optional step but serves as a really good tool to help visualize data outside of a notebook or SQL query context. In order to get set up with the dashboard, you simply need to point the datasources to the tables the pipeline will create. The dashboard is located within the root directory of the project<br/><br/>
 <img src="Images/dashboard_location.png" width=300 /><br/><br/>
 When you open the dashboard for the first time the widgets will return an error. We need to navigate to the data tab and update the source for the widgets to get their data from. Use the catalog (probably `main`) and the unique database name we used earlier to configure the pipelines (something in the `AA_12345678` format).<br/><br/>
