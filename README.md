@@ -119,7 +119,15 @@ If you've reached the max number of ingested files, you can un-comment the last 
 
 
 ### Configuring the dashboard
-Included with this project is a dashboard that can be used to visualize the data from the pipeline using Lakeview Dashboards. This is a completely optional step but serves as a really good tool to help visualize data outside of a notebook or SQL query context. In order to get set up with the dashboard, you simply need to point the datasources to the tables the pipeline will create.
+Included with this project is a dashboard that can be used to visualize the data from the pipeline using Lakeview Dashboards. This is a completely optional step but serves as a really good tool to help visualize data outside of a notebook or SQL query context. In order to get set up with the dashboard, you simply need to point the datasources to the tables the pipeline will create. The dashboard is located within the root directory of the project<br/><br/>
+<img src="Images/dashboard_location.png" width=300 /><br/><br/>
+When you open the dashboard for the first time the widgets will return an error. We need to navigate to the data tab and update the source for the widgets to get their data from. Use the catalog (probably `main`) and the unique database name we used earlier to configure the pipelines (something in the `AA_12345678` format).<br/><br/>
+<img src="Images/data_edit_button.png" width=500 /><br/><br/>
+<img src="Images/data_edit_dialog.png" width=750 /><br/><br/>
+Back in the `Wind Overview` tab, we should now see our data fully populating our dashboard. <br/><br/>
+<img src="Images/dashboard_working.png" />
+
+Congratulations! We now have a fully working dashboard associated to our pipeline. From here you can publish, edit or modify the dashboard with new insights, visualizations and tabs for easy user navigation. Experiment with different types of data sources (e.g. streaming tables, materialized views, metric views etc.) to get the insights you need!
 
 ## Terminology and conventions used
 * "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is where we got the data from for this project.
