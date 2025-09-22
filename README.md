@@ -93,7 +93,33 @@ Repeat the search & replace for the remaining files:
 Once the catalog and database definitions have been updated (with something along the lines of `main.AA_12345678.table_name_here`), you can first perform a dry run of the definitions. A dry run will help ensure that everything is configured properly and that there are adequate references to and from all of the tables and materializations in the pipeline.
 * NOTE: You need to have run the file ingest at least once so the pipeline can declaratively define it's object schemas. In total, 7 files are created that can be ingested incrementally before the project needs to be reset. If you ran through all of the steps in section 1, this should already be done for you.
 
+To run a dry run, from the pipeline editory click the `Dry Run` button at the top of the screen<br/><br/>
+<img src="Images/dry_run_dialog.png" width=300 /><br/><br/>
+Review the pipeline dry run details. If everything is configured properly, then you can proceed to doing the first pipeline run.
+<br/>
+To run the first full pipeline update, click the `Run Pipeline` button at the top of the screen. By default, pipelines run on serverless compute resources. This is really good for running pipelines on a periodic schedule or ad-hoc.
+  * The `Run Pipeline` button performs a pipeline update only processing **new** files and incrementally adding them to the pipeline
+  * The `Run Pipeline with Full Table Refresh` option (from the dropdown) resets the tables and re-processes all ingested files from the start. This is handy if you need to make critical changes to both upstream data and ETL within the pipeline.<br/><br/>
+<img src="Images/run_pipeline_dialog.png" width=300 /><br/><br/>
 
+Once your pipeline has run, you can view the run metrics, including all of the data quality checks (!). Since we're materializing all of our data at various stages of the pipeline, we can now query any of the data at any point in it's ETL journey.<br/><br/>
+<img src="Images/pipeline_results.png" /><br/><br/>
+
+Congratulations! You now have a fully functional ingestion ETL pipeline with data quality and change data capture enabled!
+
+### Updating the pipeline withe new data
+
+Now that our pipeline is fully configured we can go ahead and start adding incremental data. To do this, we need to drop a new file in the monitored directory by the pipeline. This is already configured for you and you simply need to run the notebook `1_Data_Prep/02_ingest_file` again to load the next csv file into the monitored directory (don't forget to make sure the last cell is commented out / disabled).<br/><br/>
+<img src="Images/ingest_next_file.png" /><br/><br/>
+validating the file ingestion status:<br/><br/>
+<img src="Images/ingest_file_confirmation.png" width=750 /><br/><br/>
+If you've reached the max number of ingested files, you can un-comment the last cell and run the entire notebook again to flush the files out (**NOTE:** if you run this last cell, the next time you run the pipeline you will need to run a **full pipeline refresh** as mentioned above). <br/><br/>
+<img src="Images/uncommented_flush.png" />
+**IMPORTANT! Don't forget to re-comment this out once it's been run until the next time the file loader has reached it's maximum file count!** 
+
+
+### Configuring the dashboard
+Included with this project is a dashboard that can be used to visualize the data from the pipeline using Lakeview Dashboards. This is a completely optional step but serves as a really good tool to help visualize data outside of a notebook or SQL query context. In order to get set up with the dashboard, you simply need to point the datasources to the tables the pipeline will create.
 
 ## Terminology and conventions used
 * "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is where we got the data from for this project.
