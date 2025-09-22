@@ -4,8 +4,7 @@ Databricks now allows developers to encapsulate and organize declarative pipelin
 ## Databricks Execution Structure
 Any directories and files that are marked as included are first read into the pipeline engine before execution. This is what allows declarative pipelines to be developed and execute in an asynchronous manner. All code that exists in any folder that's marked as a 'pipeline source code folder' is loaded in memory before execution and a DAG is constructed behind the scenes to determine the order of operations. This execution structure allows us more flexibility in development and grants us the ability to fork or bifurcate our logic at any point.
 
-## Building Your First Pipeline
-stuff goes here. Throw in a picture or something.
-
 ### Streaming Tables & Materialized Views
-what's the difference and when to use them
+Streaming tables are a special type of delta table that allow data to get appended in a real-time fashion. They are referred to as 'unbounded' tables because they can receive and append data asynchronously and feed into the idea of a pipeline hop which can be queried and leveraged by normal ETL processing at any point. We use special programming terminology to interface with live tables, but suffic to say they share many similar qualities to static delta tables in terms of look and feel but leverage the capabilities of the delta format to 'evolve' independently.
+
+Materialized views are related to streaming tables in that they can be consumers of streaming transformations. Materialized views are stored pre-factored tables that serve the need for fast and reliable consumption, often by reports and dashboards. Since materialized views aren't streamed by nature, they need to be recomputed on a periodic basis which may affect data freshness, but have the distinct advantage of being highly performant.
