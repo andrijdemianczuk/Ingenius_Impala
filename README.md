@@ -1,6 +1,9 @@
 # Ingenious Impala
 <img src="Images/Renewable-energy-Cover-Image-1080x675.jpg" width=500>
 
+**_IMPORTANT!_
+This document is intended to be read-through and followed as it contains detailed instructions to get set up with the project.**
+
 An analytics and data engineering experiment using data from AESO (Alberta Electric System Operator). This project requires access to a Databricks workspace with Unity Catalog enabled. In this project, we will be downloading and segmenting data to simulate incremental batch ingestion of data (the most common use case). Data will be incrementally ingested using a Lakeflow Pipeline and run through an ETL pipeline for downstream analytics and featurization.
 
 ## 1. Environment Setup
@@ -13,10 +16,11 @@ Clone this repository into a git folder in Databricks <br/>
 - Open the folder `1_data_prep`. In here, there are two notebooks. The first notebook (`01_data_prep`) only needs to be run once to create the originating data source, database and data volume.
 - Open `01_data_prep` and modify the variables declared in the first cell. These variables set the catalog name, database and storage volume labels.
 - Run the contents of `01_data_prep`. It is recommended to run this notebook in sequence for optimal compatibility.
-`01_data_prep` is a notebook that takes in a CSV file of our data and chunks it up into a series of smaller CSVs and parquet files that we can use to update incrementally. - This is a realistic simulation of data coming in and landing in a storage directory that the pipeline in this workshop will use to ingest, integrate and process.
-* `01_data_prep` creates the entire structure for the csv loader. You need a storage volume for this to work correctly. We're calling ours `data` and it's under the `development.{your_unique_database}` database
-* `02_ingest_file` is a script that we'll run to incrementally load one CSV file after the other. This script copies data from the CSV volume directory to the loaded volume directory to simulate files 'landing' in some cloud storage object.
-* `02_ingest_file` has one cell at the bottom that's commented out. This commented-out cell resets the testing environment, clearing out the loaded files and dropping the pipeline tables. To re-run the pipeline from scratch, it needs to be either deleted and re-imported or fully refreshed. To do that, uncomment the lines in the cell and replace the name of the catalog and database with your own:
+`01_data_prep` is a notebook that takes in a CSV file of our data and chunks it up into a series of smaller CSVs and parquet files that we can use to update incrementally. This is a realistic simulation of data coming in and landing in a storage directory that the pipeline in this workshop will use to ingest, integrate and process.
+- **IMPORTANT!** Open `02_ingest_file` and run the contents of each cell. The last cell in this notebook resets the working environment so make sure it's fully commented out / disabled before running this notebook.
+  - `01_data_prep` creates the entire structure for the csv loader. You need a storage volume for this to work correctly. We're calling ours `data` and it's under the `development.{your_unique_database}` database
+  - `02_ingest_file` is a script that we'll run to incrementally load one CSV file after the other. This script copies data from the CSV volume directory to the loaded volume directory to simulate files 'landing' in some cloud storage object.
+  - `02_ingest_file` has one cell at the bottom that's commented out. This commented-out cell resets the testing environment, clearing out the loaded files and dropping the pipeline tables. To re-run the pipeline from scratch, it needs to be either deleted and re-imported or fully refreshed. To do that, uncomment the lines in the cell and replace the name of the catalog and database with your own:
     ```python
     #TODO: Replace the following variables with your catalog and database name
     catalog = "YOUR_CATALOG_NAME"
@@ -84,6 +88,12 @@ Repeat the search & replace for the remaining files:
 * 2_Auto_CDC_Example.sql
 * 3_Data_Enrichment.sql
 * 4_Wind_Report_Data.sql 
+
+### Running the Pipeline
+Once the catalog and database definitions have been updated (with something along the lines of `main.AA_12345678.table_name_here`), you can first perform a dry run of the definitions. A dry run will help ensure that everything is configured properly and that there are adequate references to and from all of the tables and materializations in the pipeline.
+* NOTE: You need to have run the file ingest at least once so the pipeline can declaratively define it's object schemas. In total, 7 files are created that can be ingested incrementally before the project needs to be reset. If you ran through all of the steps in section 1, this should already be done for you.
+
+
 
 ## Terminology and conventions used
 * "AESO" refers to Alberta Electric System Operator. This is the entity that tracks energy resources in Alberta. They are just an org that helps out by providing data to consumers. This is where we got the data from for this project.
