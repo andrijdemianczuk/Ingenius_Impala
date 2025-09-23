@@ -7,7 +7,7 @@
         "SELECT * FROM g_month_stats_vw"
       ],
       "catalog": "main",
-      "schema": "ad_82257556"
+      "schema": "AA_12345678"
     },
     {
       "name": "af6638f3",
@@ -16,7 +16,7 @@
         "SELECT * FROM g_wind_stats"
       ],
       "catalog": "main",
-      "schema": "ad_82257556"
+      "schema": "AA_12345678"
     }
   ],
   "pages": [
