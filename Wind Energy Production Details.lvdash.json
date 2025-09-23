@@ -299,36 +299,6 @@
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS"
-    },
-    {
-      "name": "f06e9f54",
-      "displayName": "Lab 2: Dashboarding",
-      "layout": [
-        {
-          "widget": {
-            "name": "b82b2463",
-            "multilineTextboxSpec": {
-              "lines": [
-                "# Lab 2: Dashboarding\n",
-                "\n",
-                "Try to use the data explorer to add data sources and visualizations\n",
-                "\n",
-                "1. When is it advantageous to use 'gold' tier tables vs materialized views and vice-versa?\n",
-                "2. What is the difference in refreshing table data vs view data?\n",
-                "3. How can we use language models and built-in AI to help contribute to business intelligence?\n",
-                "4. Try to build a visualization that filter by month using a dropdown for monthly insights"
-              ]
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 6,
-            "height": 4
-          }
-        }
-      ],
-      "pageType": "PAGE_TYPE_CANVAS"
     }
   ],
   "uiSettings": {
